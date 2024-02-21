@@ -1,5 +1,16 @@
 {
   "name": "solution-engineer-test",
   "module": "index.js",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "start": "npx bun index.ts",
+    "dev": "npx bun --watch index.ts"
+  },
+  "dependencies": {
+    "bun": "^1.0.28",
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.0.6"
+  }
 }
