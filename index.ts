@@ -5,16 +5,20 @@ const host = "www.dow.com"
 Bun.serve({
   port: 36107,
   fetch: async (request) => {
-    const url = new URL(request.url)
-    const res = await fetch(`https://${host}${url.pathname}`);
+    const requestUrl = new URL(request.url)
+    
+    const url = `https://${host}${requestUrl.pathname}${requestUrl.search}`
+    const res = await fetch(url);
     
     let rawResponse = await res.text()
+    
+    res.headers.delete('Content-Encoding')
 
     return new Response(
       res.headers.get('content-type')?.includes( 'text/html') ? change_html_texts(rawResponse) : rawResponse, 
       {
       headers: {
-        'content-type': res.headers.get('content-type') ?? 'text/html'
+        ...res.headers.toJSON()
       }
     });
   },
